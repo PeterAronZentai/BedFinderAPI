@@ -17,6 +17,7 @@ Payload
     "gender":"male",
     "sex":"female"
 }
+```
 Response
 ```json
 {
@@ -96,7 +97,18 @@ Response
 }
 ```
 
-
+##### Start monitoring a request
+Request
+```
+GET /request/monitor/1
+UPGRADE WebSocker 2.0
+```
+```json
+{
+    "requestMonitorUrl":"/requests/1",
+    "lastModified": "UTC-Date"
+}
+```
 ##### Cancel a request
 Request
 ```
@@ -106,18 +118,19 @@ DELETE /requests/%requestId%
 
 ### Client API
 
-#### Submitter
 ```javascript
 
-bedfinder.createProfile({})
-         .then(/* you get the profile ID here, place code to handle OK result*/)
-         .fail(/* place code to handler ERROR result */)
+bedfinder.createProfile(/* profile data in json*/)
+         .then(function() { /* you get the profile ID here, place code to handle OK result*/})
+         .fail(function() { /* place code to handler ERROR result */})
          
 bedfinder.requestBed( { profileId: [1234,2345], maximumWaitTime: "15m" })
          .then(function() { /* you get the request ID here */ })
          .fail(function() { /* you get request errors here */ })
          
-var monitor = bedfinder.monitorReqest({ requestId: [1,2,3] })
+var monitor = bedfinder.monitorReqest(1)
+//
+//var monitor = bedfinder.monitorReqest([1,2,3], {monitorOptions})
 
 monitor.on("success", function(requestId, responderId) {
     //place code to handle success (eg remove outstanding record from screen, play audio alert)    
@@ -135,6 +148,22 @@ monitor.on("timeout", function(requestId) {
     //place code to potentially add some more wait time
 });
 
+```
+#### Response API
+
+```javascript
+var monitor bedfinder.createMonitor()
+
+//var monitor bedfinder.createMonitor({ groupId: [1,2,3,4] });
+monitor.on("newRequest", function(requestDetails) {
+    //place code to display profiles
+    var profileId : requestDetails.profileId
+});
+
+bedfinder.getProfile(profileId)
+         .then(function(profileInfo) {
+             
+         });
 ```
 
 ##Tier2
