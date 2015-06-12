@@ -7,10 +7,10 @@
 
 #### REST API
 
-##### Create profile
+##### Create assesments
 Request
 ```
-POST /profiles
+POST /assesments
 ```
 Payload
 ```
