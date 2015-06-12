@@ -5,6 +5,7 @@
 ### REST API
 
 #### Submitter API
+
 ##### Create profile
 Request
 ```
@@ -22,6 +23,20 @@ Response
 ```json
 {
     "profileId":123
+}
+```
+
+##### Get a profile
+Request
+```
+GET /profiles/%profileId%
+```
+Response
+```json
+{
+    "age":42,
+    "gender":"male",
+    "sex":"female"
 }
 ```
 
@@ -116,7 +131,7 @@ DELETE /requests/%requestId%
 ```
 
 
-### Client API
+#### Client API
 
 ```javascript
 
@@ -149,8 +164,9 @@ monitor.on("timeout", function(requestId) {
 });
 
 ```
-#### Response API
+### Responder API
 
+#### Client API 
 ```javascript
 var monitor bedfinder.createMonitor()
 
