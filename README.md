@@ -1,11 +1,26 @@
-BedFinder API
+#BedFinder API
 
-#Tier1
+##Tier1
 
-## REST API
+### REST API
 
+#### Create profile
 
-## Client API
+```
+POST /profiles
+```
+
+#### Create a request
+```
+POST /requests
+```
+
+```json
+{
+    "profileId": [123,345]
+}
+```
+### Client API
 
 ```javascript
 
@@ -36,4 +51,4 @@ monitor.on("timeout", function(requstId) {
 
 
 
-Tier2
+##Tier2
