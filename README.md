@@ -52,13 +52,13 @@ GET /requests
 Response
 ```json
 {
-    result: [
+    "result": [
         {
-            requestId: 1,
-            profiles: [1,3,4]
+            "requestId": 1,
+            "profiles": [1,3,4]
         }
     ],
-    totalCount: 3
+    "totalCount": 3
 }
 ```
 ##### Get specific response
