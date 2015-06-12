@@ -11,15 +11,23 @@ POST /profiles
 ```
 
 #### Create a request
+Request
 ```
 POST /requests
 ```
-
+Payload
 ```json
 {
     "profileId": [123,345]
 }
 ```
+Result
+```
+{
+    requestId: "R1"
+}
+```
+
 ### Client API
 
 ```javascript
