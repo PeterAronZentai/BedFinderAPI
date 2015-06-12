@@ -2,9 +2,10 @@
 
 ##Tier1
 
-### REST API
 
-#### Submitter API
+### Submitter API
+
+#### REST API
 
 ##### Create profile
 Request
@@ -35,8 +36,7 @@ Response
 ```json
 {
     "age":42,
-    "gender":"male",
-    "sex":"female"
+    "gender":"male"
 }
 ```
 
@@ -62,7 +62,7 @@ Response
 ##### Get all my active requests
 Request
 ```
-GET /requests
+GET /requests/mine
 ```
 Response
 ```json
@@ -135,6 +135,7 @@ DELETE /requests/%requestId%
 
 ```javascript
 
+
 bedfinder.createProfile(/* profile data in json*/)
          .then(function() { /* you get the profile ID here, place code to handle OK result*/})
          .fail(function() { /* place code to handler ERROR result */})
@@ -163,8 +164,66 @@ monitor.on("timeout", function(requestId) {
     //place code to potentially add some more wait time
 });
 
+bedfinder.getRequestFromMe({includeProfiles: true})
+         .then(function(requests) {
+             requests.forEach(function(request) {
+                 //display request details with a templating engine
+             });
+         });
 ```
 ### Responder API
+#### REST API
+Get active requests
+```
+ GET /requests/others?$include=profileId
+```
+Response
+```json
+{
+   result: [{
+    "requestId":1,
+    "profileId":[1,2,3]
+   }, {
+    "requestId":2,
+    "profileId":[4,5,6]
+   }]
+}
+
+Claim  a request
+
+Uri
+```
+POST /requests/%requestId%/claim
+```
+Payload
+```json
+    {
+        "comment": "any message related to the response"
+    }
+```
+Response
+```json
+    {
+    }
+```
+
+Reject a request
+
+Uri
+```
+POST /requests/%requestId%/reject
+```
+Payload
+```json
+    {
+        "comment": "any message related to the response"
+    }
+```
+Response
+```json
+    {
+    }
+```
 
 #### Client API 
 ```javascript
@@ -176,10 +235,41 @@ monitor.on("newRequest", function(requestDetails) {
     var profileId : requestDetails.profileId
 });
 
+bedfinder.getRequestsFromOthers()
+         .then(function(requests) {
+             request.forEach(request) {
+                 $('#requestTable').append(
+                    handlebars.render(request, "<div>Request Date {{RequestDate}}</div>"); 
+                  })
+             });
+         })
+         .fail(function() {
+         });
+
 bedfinder.getProfile(profileId)
          .then(function(profileInfo) {
-             
+           //handle when a profile is received
+         })
+         .fail(function(error) {
+             //handle when an error occured
          });
+
+bedfinder.claim({
+        requestId: 1,
+        comment: "...."
+     })
+    .then(function() {
+        //handle when your response
+    });
+    
+bedfinder.reject({
+        requestId: 1,
+        reason: "no more beds"
+     })
+    .then(function() {
+        //handle when your response
+    });
+
 ```
 
 ##Tier2
