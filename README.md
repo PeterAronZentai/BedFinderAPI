@@ -1,6 +1,108 @@
 #BedFinder API
 
-##Tier1
+### UPDATE: Based on discussion with PZ 6/19
+
+#### Create a need
+    
+     POST /needs
+          - caseReferenceId
+          - assessments
+               - assessment
+               - assessment
+
+#### View all my needs
+     
+     GET /needs
+          params: status=open | closed (default open?)
+                    expand = true|false
+
+#### View a specific need
+
+     GET /needs/:needId
+     
+#### Edit a need
+
+     PUT /needs/:needId
+
+#### Create a request
+
+     POST /need/:needId/requests
+
+#### View requests for a need
+
+     GET /need/:needId/requests
+     (includes responses?)
+
+#### View all my sent requests
+
+     GET /requests/sent
+          ?status = open | closed | canceled
+
+#### View a request
+
+     GET /requests/:requestId
+
+#### Edit the request details
+
+     PUT /requests/:requestId
+
+#### View the request responses
+
+     GET /requests/:requestId/responses
+          ?response=yes|possible|no (default is all)
+
+#### Cancel a request (???)
+
+     POST /requests/:requestId/cancel (???)
+          - cancellation reason
+
+
+#### Get agencies that my org is connected to
+
+     GET /agencies
+
+#### Get specific agency info
+
+     GET /agencies/:agencyId
+
+#### Get groups that my org belongs to
+
+     GET /groups
+
+#### Get specific agency group
+
+     GET /groups/:groupId
+
+#### Get all agencies in a group
+
+     GET /groups/:groupId/agencies
+
+
+#### View the requests that were sent to my agency from other agencies
+
+     GET /requests/received
+          ?status = open| closed
+
+#### Respond to a request
+
+     POST /requests/:requestId/responses
+
+#### Change the response
+
+     PUT /responses/:responseId
+
+#### QUESTIONS: 
+     - Expanding resources
+          - decision: use query param "expand" with true/false
+     - Versioning
+          - put version number in the URL
+     - Paging
+          - don't need right away for v1
+     - Agencies vs Locations? Locations respond, not agencies.
+          - don't need to handle this right away, but might inform the data model / nomenclature
+
+
+## Tier1
 
 
 ### Submitter API
